@@ -18,7 +18,7 @@ const main = document.querySelector('main')
 
 page(decorateContent)
 page('/', showHome)
-page('/catalog', ()=> console.log('catalog'))
+page('/catalog', showCatalog)
 page('/login', showLogin)
 page('/create', ()=> console.log('create'))
 page('/details/:id', ()=> console.log('details'))
