@@ -4,33 +4,32 @@ import { getUserData } from "../util.js";
 
 const nav = document.querySelector("nav");
 
-const navTemplate = (hasUser) => html` 
- <img src="./images/headphones.png">
- <div>
-            <a href="/catalog">Dashboard</a>
-          </div>
-
-          <!-- Logged-in users -->
-          <div class="user">
-            <a href="/create">Create Offer</a>
-            <a href="javascript:void(0)">Logout</a>
-          </div>
-
-          <!-- Guest users -->
-          <div class="guest">
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-          </div>>`;
+const navTemplate = (hasUser, onLogout) => html`
+  <img src="./images/headphones.png" />
+  <div>
+    <a href="/catalog">Dashboard</a>
+  </div>
+  ${hasUser? html`
+    <div class="user">
+        <a href="/create">Create Offer</a>
+        <a @submit=${onLogout} href="javascript:void(0)">Logout</a>
+    </div>`
+    : html` 
+    <div class="guest">
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+    </div>
+        >`}
+`;
 
 export function updateNav() {
-    const user = getUserData()
+  const user = getUserData();
 
-    render(navTemplate(user), nav);
+  render(navTemplate(user, onLogout), nav);
 }
 
-
 function onLogout() {
-    logout()
-    updateNav()
-    page.redirect('/')
+  logout();
+  updateNav();
+  page.redirect("/");
 }
