@@ -8,21 +8,21 @@ import { showEdit } from "./views/edit.js";
 import { showHome } from "./views/home.js";
 import { showLogin } from "./views/login.js";
 import { updateNav } from "./views/nav.js";
-import { showRegister } from "./views/registrationView.js";
+import { showRegister } from "./views/registration.js";
 import { showSearch } from "./views/search.js";
 
-const main = document.getElementById('main-content')
+const main = document.querySelector('main')
 
 // document.getElementById('logoutBtn').addEventListener('click', onLogout)
 
 
 page(decorateContent)
-page('/', ()=> console.log('Home'))
+page('/', showHome)
 page('/catalog', ()=> console.log('catalog'))
-page('/login', ()=> console.log('login'))
+page('/login', showLogin)
 page('/create', ()=> console.log('create'))
 page('/details/:id', ()=> console.log('details'))
-page('/register', ()=> console.log('register'))
+page('/register', showRegister)
 page('/edit/:id', ()=> console.log('edit'))
 page('/search', ()=> console.log('search'))
 

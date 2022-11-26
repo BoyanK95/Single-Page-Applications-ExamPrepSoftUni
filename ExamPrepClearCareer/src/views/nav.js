@@ -12,7 +12,7 @@ const navTemplate = (hasUser, onLogout) => html`
   ${hasUser? html`
     <div class="user">
         <a href="/create">Create Offer</a>
-        <a @submit=${onLogout} href="javascript:void(0)">Logout</a>
+        <a @click=${onLogout} href="javascript:void(0)">Logout</a>
     </div>`
     : html` 
     <div class="guest">

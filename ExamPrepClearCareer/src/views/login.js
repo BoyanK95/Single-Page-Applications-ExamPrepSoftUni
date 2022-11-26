@@ -4,24 +4,23 @@ import { createSubmitHandler } from '../util.js'
 
 
 const loginTemplate = (onLogin) => html`
-                <section id="loginPage">
-            <form @submit=${onLogin}>
-                <fieldset>
-                    <legend>Login</legend>
-
-                    <label for="email" class="vhide">Email</label>
-                    <input id="email" class="email" name="email" type="text" placeholder="Email">
-
-                    <label for="password" class="vhide">Password</label>
-                    <input id="password" class="password" name="password" type="password" placeholder="Password">
-
-                    <button type="submit" class="login">Login</button>
-
-                    <p class="field">
-                        <span>If you don't have profile click <a href="#">here</a></span>
-                    </p>
-                </fieldset>
+        <section id="login">
+          <div class="form">
+            <h2>Login</h2>
+            <form @submit=${onLogin} class="login-form">
+              <input type="text" name="email" id="email" placeholder="email" />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+              />
+              <button type="submit">login</button>
+              <p class="message">
+                Not registered? <a href="/register">Create an account</a>
+              </p>
             </form>
+          </div>
         </section>`
 
 export function showLogin(ctx) {
