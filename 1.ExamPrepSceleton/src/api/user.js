@@ -1,11 +1,6 @@
 import { clearUserData, setUserData } from "../util.js";
 import { get, post } from "./api.js";
 
-const endpoint = {
-    // 'login': 
-    // 'register': //
-    // 'logout' : //
-}
 
 export async function login(email, password) {
     const { _id, email: resultEmail, accessToken} = await post('/users/login', {email, password})
@@ -13,6 +8,7 @@ export async function login(email, password) {
     setUserData({
         _id,
         email: resultEmail,
+        password,
         accessToken
     })
 }
@@ -24,6 +20,7 @@ export async function register(email, password) {
     setUserData({
         _id,
         email: resultEmail,
+        password,
         accessToken
     })
 }
