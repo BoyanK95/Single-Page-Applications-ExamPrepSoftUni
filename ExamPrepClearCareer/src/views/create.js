@@ -1,59 +1,69 @@
-import { createInstance } from '../api/data.js'
-import { html } from '../lib.js'
-import { createSubmitHandler } from '../util.js'
+import { createInstance } from "../api/data.js";
+import { html } from "../lib.js";
+import { createSubmitHandler } from "../util.js";
 
+const createTemplate = (onCreate) => html` <section id="create">
+  <div class="form">
+    <h2>Create Offer</h2>
+    <form @submit=${onCreate} class="create-form">
+      <input type="text" name="title" id="job-title" placeholder="Title" />
+      <input
+        type="text"
+        name="imageUrl"
+        id="job-logo"
+        placeholder="Company logo url"
+      />
+      <input
+        type="text"
+        name="category"
+        id="job-category"
+        placeholder="Category"
+      />
+      <textarea
+        id="job-description"
+        name="description"
+        placeholder="Description"
+        rows="4"
+        cols="50"
+      ></textarea>
+      <textarea
+        id="job-requirements"
+        name="requirements"
+        placeholder="Requirements"
+        rows="4"
+        cols="50"
+      ></textarea>
+      <input type="text" name="salary" id="job-salary" placeholder="Salary" />
 
-const createTemplate = (onCreate) => html`
-        <section class="createPage">
-            <form @submit=${onCreate}>
-                <fieldset>
-                    <legend>Add Album</legend>
-
-                    <div class="container">
-                        <label for="name" class="vhide">Album name</label>
-                        <input id="name" name="name" class="name" type="text" placeholder="Album name">
-
-                        <label for="imgUrl" class="vhide">Image Url</label>
-                        <input id="imgUrl" name="imgUrl" class="imgUrl" type="text" placeholder="Image Url">
-
-                        <label for="price" class="vhide">Price</label>
-                        <input id="price" name="price" class="price" type="text" placeholder="Price">
-
-                        <label for="releaseDate" class="vhide">Release date</label>
-                        <input id="releaseDate" name="releaseDate" class="releaseDate" type="text" placeholder="Release date">
-
-                        <label for="artist" class="vhide">Artist</label>
-                        <input id="artist" name="artist" class="artist" type="text" placeholder="Artist">
-
-                        <label for="genre" class="vhide">Genre</label>
-                        <input id="genre" name="genre" class="genre" type="text" placeholder="Genre">
-
-                        <label for="description" class="vhide">Description</label>
-                        <textarea name="description" class="description" placeholder="Description"></textarea>
-
-                        <button class="add-album" type="submit">Add New Album</button>
-                    </div>
-                </fieldset>
-            </form>
-        </section>`
+      <button type="submit">post</button>
+    </form>
+  </div>
+</section>`;
 
 export function showCreate(ctx) {
-    ctx.render(createTemplate(createSubmitHandler(onCreate)))
+  ctx.render(createTemplate(createSubmitHandler(onCreate)));
 
-    async function onCreate({ name, imgUrl, price, releaseDate, artist, genre,  description}, form) {
-        if (name == '' || imgUrl == '' || price == '' || releaseDate == '' || artist == '' || genre == '' || description == '' ) {
-            return alert('All fields must be filled')
-        }
-        await createInstance({
-            name,
-            imgUrl,
-            price,
-            releaseDate,
-            artist,
-            genre,
-            description,
-        })
-        form.reset()
-        ctx.page.redirect('/catalog')
+  async function onCreate(
+    { title, imageUrl, category, description, requirements,},
+    form
+  ) {
+    if (
+        title == "" ||
+      imageUrl == "" ||
+      category == "" ||
+      description == "" ||
+      requirements == ""
+      ) {
+      return alert("All fields must be filled");
     }
+    await createInstance({
+        title,
+      imageUrl,
+      category,
+      description,
+      requirements,
+       });
+    form.reset();
+    ctx.page.redirect("/catalog");
+  }
 }
