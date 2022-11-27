@@ -44,7 +44,7 @@ export function showCreate(ctx) {
   ctx.render(createTemplate(createSubmitHandler(onCreate)));
 
   async function onCreate(
-    { title, imageUrl, category, description, requirements,},
+    { title, imageUrl, category, description, requirements, salary},
     form
   ) {
     if (
@@ -52,7 +52,8 @@ export function showCreate(ctx) {
       imageUrl == "" ||
       category == "" ||
       description == "" ||
-      requirements == ""
+      requirements == "" ||
+      salary == ""
       ) {
       return alert("All fields must be filled");
     }
@@ -62,6 +63,7 @@ export function showCreate(ctx) {
       category,
       description,
       requirements,
+      salary
        });
     form.reset();
     ctx.page.redirect("/catalog");

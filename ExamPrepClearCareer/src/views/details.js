@@ -1,51 +1,43 @@
 import { deleteById, getById } from '../api/data.js'
 import { html, nothing } from '../lib.js'
 
-const detailsTemplate = (item, isOwner, onDelete) => html`
-        <section id="detailsPage">
-            <div class="wrapper">
-                <div class="albumCover">
-                    <img src=${item.imgUrl}>
-                </div>
-                <div class="albumInfo">
-                    <div class="albumText">
-
-                        <h1>Name: ${item.name}</h1>
-                        <h3>Artist: ${item.artist}</h3>
-                        <h4>Genre: ${item.genre}</h4>
-                        <h4>Price: ${item.price}</h4>
-                        <h4>Date: ${item.releaseDate}</h4>
-                        <p>Description: ${item.description}</p>
-                    </div>
-
-                          <!-- Only for registered user and creator of the album-->
-                    ${isOwner ?
-                    html`
-                    <div class="actionBtn">
-                        <a href="/edit/${item._id}" class="edit">Edit</a>
-                        <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-                    </div>`:
-                    nothing}
-                  
-                    
-                </div>
+const detailsTemplate = (item, isOwner, hasUser, onDelete) => html`
+        <section id="details">
+          <div id="details-wrapper">
+            <img id="details-img" src="./images/example2.png" alt="example1" />
+            <p id="details-title">${item.title}</p>
+            <p id="details-category">
+              Category: <span id="categories">${item.categories}</span>
+            </p>
+            <p id="details-salary">
+              Salary: <span id="salary-number">${item.salary}</span>
+            </p>
+            <div id="info-wrapper">
+              <div id="details-description">
+                <h4>Description</h4>
+                <span
+                  >${item.description}</span
+                >
+              </div>
+              <div id="details-requirements">
+                <h4>Requirements</h4>
+                <span
+                  >${item.requirements}</span
+                >
+              </div>
             </div>
+            <p>Applications: <strong id="applications">1</strong></p>
+            <div id="action-buttons">
+                ${isOwner ? html`
+                <a href="/edit/${item._id}" id="edit-btn">Edit</a>
+              <a @click=${onDelete} href="javascript:void(0)" id="delete-btn">Delete</a>` 
+              : nothing}
+              ${hasUser ? html`
+              <a href="" id="apply-btn">Apply</a>` : nothing}
+
+            </div>
+          </div>
         </section>`
-
-function itemControls(item, hasUser, onDelete) {
-    if (hasUser == false) {
-        return nothing
-    }
-
-    if (isOwner) {
-        return html`
-         <div class="actionBtn">
-            <a href="/edit/${item._id}" class="edit">Edit</a>
-            <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-        </div>`
-    }
-
-}
 
 
 export async function showDetails(ctx) {
@@ -55,7 +47,7 @@ export async function showDetails(ctx) {
     const hasUser = Boolean(ctx.user)
     const isOwner = hasUser && ctx.user._id == item._ownerId
     
-    ctx.render(detailsTemplate(item,isOwner, onDelete))
+    ctx.render(detailsTemplate(item,isOwner, hasUser, onDelete))
 
     async function onDelete() {
         const choice = confirm('Are you sure you want to delete this')
