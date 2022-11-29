@@ -38,6 +38,6 @@ export function showRegister(ctx) {
     }
     await register(data.email, data.password)
     ctx.updateNav()
-    ctx.page.redirect('/')
+    ctx.page.redirect('/catalog')
   }
 }

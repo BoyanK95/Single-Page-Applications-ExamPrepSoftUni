@@ -1,33 +1,30 @@
 import { deleteById, getById } from '../api/data.js'
 import { html, nothing } from '../lib.js'
 
-const detailsTemplate = (item, isOwner, onDelete) => html`
-        <section id="detailsPage">
-            <div class="wrapper">
-                <div class="albumCover">
-                    <img src=${item.imgUrl}>
-                </div>
-                <div class="albumInfo">
-                    <div class="albumText">
+const detailsTemplate = (item, isOwner, hasUser, onDelete) => html`
+       <section id="details-page">
+            <h1 class="title">Post Details</h1>
 
-                        <h1>Name: ${item.name}</h1>
-                        <h3>Artist: ${item.artist}</h3>
-                        <h4>Genre: ${item.genre}</h4>
-                        <h4>Price: ${item.price}</h4>
-                        <h4>Date: ${item.releaseDate}</h4>
-                        <p>Description: ${item.description}</p>
+            <div id="container">
+                <div id="details">
+                    <div class="image-wrapper">
+                        <img src="./images/clothes.jpeg" alt="Material Image" class="post-image">
                     </div>
-
-                          <!-- Only for registered user and creator of the album-->
-                    ${isOwner ?
-                    html`
-                    <div class="actionBtn">
-                        <a href="/edit/${item._id}" class="edit">Edit</a>
-                        <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-                    </div>`:
-                    nothing}
-                  
-                    
+                    <div class="info">
+                        <h2 class="title post-title">${item.title}</h2>
+                        <p class="post-description">Description: ${item.description}</p>
+                        <p class="post-address">${item.address}</p>
+                        <p class="post-number">${item.phone}</p>
+                        <p class="donate-Item">Donate Materials: 0</p>
+                        <div class="btns">
+                            <!--Edit and Delete are only for creator-->
+                            ${isOwner ? html`
+                            <a href="#" class="edit-btn btn">Edit</a>
+                            <a href="#" class="delete-btn btn">Delete</a>` : nothing}
+                            ${hasUser ? html`
+                            <a href="#" class="donate-btn btn">Donate</a>` : nothing}                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>`
@@ -55,7 +52,7 @@ export async function showDetails(ctx) {
     const hasUser = Boolean(ctx.user)
     const isOwner = hasUser && ctx.user._id == item._ownerId
     
-    ctx.render(detailsTemplate(item,isOwner, onDelete))
+    ctx.render(detailsTemplate(item, isOwner, hasUser, onDelete))
 
     async function onDelete() {
         const choice = confirm('Are you sure you want to delete this')
