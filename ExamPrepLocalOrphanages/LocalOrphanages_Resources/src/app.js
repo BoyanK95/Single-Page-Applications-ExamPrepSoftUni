@@ -17,12 +17,12 @@ const main = document.getElementById('main-content')
 
 
 page(decorateContent)
-page('/', ()=> console.log('Home'))
-page('/catalog', ()=> console.log('catalog'))
+page('/catalog', showCatalog)
 page('/login', showLogin)
+page('/register', showRegister)
+page('/', ()=> console.log('Home'))
 page('/create', ()=> console.log('create'))
 page('/details/:id', ()=> console.log('details'))
-page('/register', ()=> console.log('register'))
 page('/edit/:id', ()=> console.log('edit'))
 page('/search', ()=> console.log('search'))
 

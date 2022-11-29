@@ -1,42 +1,64 @@
 import { getAll } from "../api/data.js";
 import { html, nothing } from "../lib.js";
 
-const catalogTemplate = (items, hasUser) => html` 
-        <section id="catalogPage">
-            <h1>All Albums</h1>
-            ${items.length > 0 ?
-            items.map(i => cardTemplate(i, hasUser)):
-            html`<p>No Albums in Catalog!</p>`}
+const catalogTemplate = (items, hasUser) => html` <section id="dashboard-page">
+  <h1 class="title">All Posts</h1>
 
-        </section>`
+  <!-- Display a div with information about every post (if any)-->
+  <div class="all-posts">
+    <div class="post">
+      <h2 class="post-title">Clothes</h2>
+      <img
+        class="post-image"
+        src="./images/clothes.jpeg"
+        alt="Material Image"
+      />
+      <div class="btn-wrapper">
+        <a href="#" class="details-btn btn">Details</a>
+      </div>
+    </div>
+
+    <div class="post">
+      <h2 class="post-title">Toys</h2>
+      <img class="post-image" src="./images/toys.jpeg" alt="Kids clothes" />
+      <div class="btn-wrapper">
+        <a href="#" class="details-btn btn">Details</a>
+      </div>
+    </div>
+
+    <div class="post">
+      <h2 class="post-title">School Supplies</h2>
+      <img
+        class="post-image"
+        src="./images/school-supplies.jpeg"
+        alt="Kids clothes"
+      />
+      <div class="btn-wrapper">
+        <a href="#" class="details-btn btn">Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display an h1 if there are no posts -->
+  <h1 class="title no-posts-title">No posts yet!</h1>
+</section>`;
 
 const cardTemplate = (item, hasUser) => {
-  return html`
-  <div class="card-box">
-                <img src=${item.imgUrl}>
-                <div>
-                    <div class="text-center">
-                        <p class="name">${item.name}</p>
-                        <p class="artist">${item.artist}</p>
-                        <p class="genre">${item.genre}</p>
-                        <p class="price">${item.price}</p>
-                        <p class="date">${item.releaseDate}</p>
-                    </div>
-
-                    ${hasUser ? 
-                      html`<div class="btn-group">
-                        <a href="/details/${item._id}" id="details">Details</a>
-                    </div>` :
-                    nothing
-                    }
-
-                    
-                </div>
-            </div>`
-}
+  return html` <div class="post">
+    <h2 class="post-title">School Supplies</h2>
+    <img
+      class="post-image"
+      src="./images/school-supplies.jpeg"
+      alt="Kids clothes"
+    />
+    <div class="btn-wrapper">
+      <a href="#" class="details-btn btn">Details</a>
+    </div>
+  </div>`;
+};
 
 export async function showCatalog(ctx) {
   const items = await getAll();
-  const hasUser = !!ctx.user
+  const hasUser = !!ctx.user;
   ctx.render(catalogTemplate(items, hasUser));
 }
