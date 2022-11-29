@@ -26,6 +26,7 @@ const cardTemplate = (item, hasUser) => {
   </div>`;
 };
 
+
 export async function showCatalog(ctx) {
   const items = await getAll();
   const hasUser = !!ctx.user;

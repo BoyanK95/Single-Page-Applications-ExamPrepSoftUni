@@ -7,6 +7,7 @@ import { showDetails } from "./views/details.js";
 import { showEdit } from "./views/edit.js";
 import { showHome } from "./views/home.js";
 import { showLogin } from "./views/login.js";
+import { showMyPosts } from "./views/myPosts.js";
 import { updateNav } from "./views/nav.js";
 import { showRegister } from "./views/registrationView.js";
 import { showSearch } from "./views/search.js";
@@ -24,7 +25,7 @@ page('/', ()=> console.log('Home'))
 page('/create', showCreate)
 page('/details/:id', showDetails)
 page('/edit/:id', showEdit)
-page('/search', ()=> console.log('search'))
+page('/myPosts', showMyPosts)
 
 updateNav()
 page.start()

@@ -24,3 +24,7 @@ export async function search(query) {
     return get(`/data/posts?where=name%20LIKE%20%22${query}%22`)
 }
 
+export async function viewMyPosts(id) {
+    return get(`/data/posts?where=_ownerId%3D%22${id}%22&sortBy=_createdOn%20desc`)
+}
+
