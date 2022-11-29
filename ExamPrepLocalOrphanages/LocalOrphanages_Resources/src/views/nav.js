@@ -6,21 +6,20 @@ const nav = document.querySelector("nav");
 
 const navTemplate = (hasUser) => html` 
  <img src="./images/headphones.png">
-                <a href="/">Home</a>
-                <ul>
-                    <!--All user-->
-                    <li><a href="/catalog">Catalog</a></li>
-                    <li><a href="/search">Search</a></li>
-                    <!--Only guest-->
-                    ${hasUser ?
-                    html`<li><a href="/create">Create Album</a></li>
-                    <li><a @click=${onLogout} href="javascript:void(0)">Logout</a></li>`: 
-                    html`<li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>`}
-                    
-                    <!--Only user-->
-                    
-                </ul>`;
+    <a href="/catalog">Dashboard</a>
+
+<!-- Logged-in users -->
+    <div id="user">
+        <a href="#">My Posts</a>
+        <a href="/create">Create Post</a>
+        <a href="javascript:void(0)">Logout</a>
+    </div>
+
+<!-- Guest users -->
+<div id="guest">
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</div>`;
 
 export function updateNav() {
     const user = getUserData()

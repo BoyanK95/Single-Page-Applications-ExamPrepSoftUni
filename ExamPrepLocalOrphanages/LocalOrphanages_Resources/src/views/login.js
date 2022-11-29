@@ -4,23 +4,21 @@ import { createSubmitHandler } from '../util.js'
 
 
 const loginTemplate = (onLogin) => html`
-                <section id="loginPage">
-            <form @submit=${onLogin}>
-                <fieldset>
-                    <legend>Login</legend>
+        <section id="login-page" class="auth">
+            <form @submit=${onLogin} id="login">
+                <h1 class="title">Login</h1>
 
-                    <label for="email" class="vhide">Email</label>
-                    <input id="email" class="email" name="email" type="text" placeholder="Email">
+                <article class="input-group">
+                    <label for="login-email">Email: </label>
+                    <input type="email" id="login-email" name="email">
+                </article>
 
-                    <label for="password" class="vhide">Password</label>
-                    <input id="password" class="password" name="password" type="password" placeholder="Password">
+                <article class="input-group">
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password">
+                </article>
 
-                    <button type="submit" class="login">Login</button>
-
-                    <p class="field">
-                        <span>If you don't have profile click <a href="#">here</a></span>
-                    </p>
-                </fieldset>
+                <input type="submit" class="btn submit-btn" value="Log In">
             </form>
         </section>`
 
@@ -34,6 +32,6 @@ export function showLogin(ctx) {
 
         await login(email, password)
         ctx.updateNav()
-        ctx.page.redirect('/')
+        ctx.page.redirect('/catalog')
     }
 }
