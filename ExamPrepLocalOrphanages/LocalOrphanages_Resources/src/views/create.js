@@ -4,53 +4,51 @@ import { createSubmitHandler } from '../util.js'
 
 
 const createTemplate = (onCreate) => html`
-        <section class="createPage">
-            <form @submit=${onCreate}>
-                <fieldset>
-                    <legend>Add Album</legend>
+        <section id="create-page" class="auth">
+            <form @submit=${onCreate} id="create">
+                <h1 class="title">Create Post</h1>
 
-                    <div class="container">
-                        <label for="name" class="vhide">Album name</label>
-                        <input id="name" name="name" class="name" type="text" placeholder="Album name">
+                <article class="input-group">
+                    <label for="title">Post Title</label>
+                    <input type="title" name="title" id="title">
+                </article>
 
-                        <label for="imgUrl" class="vhide">Image Url</label>
-                        <input id="imgUrl" name="imgUrl" class="imgUrl" type="text" placeholder="Image Url">
+                <article class="input-group">
+                    <label for="description">Description of the needs </label>
+                    <input type="text" name="description" id="description">
+                </article>
 
-                        <label for="price" class="vhide">Price</label>
-                        <input id="price" name="price" class="price" type="text" placeholder="Price">
+                <article class="input-group">
+                    <label for="imageUrl"> Needed materials image </label>
+                    <input type="text" name="imageUrl" id="imageUrl">
+                </article>
 
-                        <label for="releaseDate" class="vhide">Release date</label>
-                        <input id="releaseDate" name="releaseDate" class="releaseDate" type="text" placeholder="Release date">
+                <article class="input-group">
+                    <label for="address">Address of the orphanage</label>
+                    <input type="text" name="address" id="address">
+                </article>
 
-                        <label for="artist" class="vhide">Artist</label>
-                        <input id="artist" name="artist" class="artist" type="text" placeholder="Artist">
+                <article class="input-group">
+                    <label for="phone">Phone number of orphanage employee</label>
+                    <input type="text" name="phone" id="phone">
+                </article>
 
-                        <label for="genre" class="vhide">Genre</label>
-                        <input id="genre" name="genre" class="genre" type="text" placeholder="Genre">
-
-                        <label for="description" class="vhide">Description</label>
-                        <textarea name="description" class="description" placeholder="Description"></textarea>
-
-                        <button class="add-album" type="submit">Add New Album</button>
-                    </div>
-                </fieldset>
+                <input type="submit" class="btn submit" value="Create Post">
             </form>
         </section>`
 
 export function showCreate(ctx) {
     ctx.render(createTemplate(createSubmitHandler(onCreate)))
 
-    async function onCreate({ name, imgUrl, price, releaseDate, artist, genre,  description}, form) {
-        if (name == '' || imgUrl == '' || price == '' || releaseDate == '' || artist == '' || genre == '' || description == '' ) {
+    async function onCreate({ title, imageUrl,  address, phone, description}, form) {
+        if (title == '' || imageUrl == ''|| address == '' || phone == '' || description == '' ) {
             return alert('All fields must be filled')
         }
         await createInstance({
-            name,
-            imgUrl,
-            price,
-            releaseDate,
-            artist,
-            genre,
+            title,
+            imageUrl,
+            address,
+            phone,
             description,
         })
         form.reset()

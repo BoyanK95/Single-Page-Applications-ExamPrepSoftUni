@@ -19,8 +19,8 @@ const detailsTemplate = (item, isOwner, hasUser, onDelete) => html`
                         <div class="btns">
                             <!--Edit and Delete are only for creator-->
                             ${isOwner ? html`
-                            <a href="#" class="edit-btn btn">Edit</a>
-                            <a href="#" class="delete-btn btn">Delete</a>` : nothing}
+                            <a href="/edit/${item._id}" class="edit-btn btn">Edit</a>
+                            <a @click=${onDelete} href="javascript:void(0)" class="delete-btn btn">Delete</a>` : nothing}
                             ${hasUser ? html`
                             <a href="#" class="donate-btn btn">Donate</a>` : nothing}                            
                         </div>
