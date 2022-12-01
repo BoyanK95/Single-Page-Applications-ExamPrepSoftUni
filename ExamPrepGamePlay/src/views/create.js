@@ -4,56 +4,45 @@ import { createSubmitHandler } from '../util.js'
 
 
 const createTemplate = (onCreate) => html`
-        <section class="createPage">
-            <form @submit=${onCreate}>
-                <fieldset>
-                    <legend>Add Album</legend>
+        <section id="create-page" class="auth">
+            <form @submit=${onCreate} id="create">
+                <div class="container">
 
-                    <div class="container">
-                        <label for="name" class="vhide">Album name</label>
-                        <input id="name" name="name" class="name" type="text" placeholder="Album name">
+                    <h1>Create Game</h1>
+                    <label for="leg-title">Legendary title:</label>
+                    <input type="text" id="title" name="title" placeholder="Enter game title...">
 
-                        <label for="imgUrl" class="vhide">Image Url</label>
-                        <input id="imgUrl" name="imgUrl" class="imgUrl" type="text" placeholder="Image Url">
+                    <label for="category">Category:</label>
+                    <input type="text" id="category" name="category" placeholder="Enter game category...">
 
-                        <label for="price" class="vhide">Price</label>
-                        <input id="price" name="price" class="price" type="text" placeholder="Price">
+                    <label for="levels">MaxLevel:</label>
+                    <input type="number" id="maxLevel" name="maxLevel" min="1" placeholder="1">
 
-                        <label for="releaseDate" class="vhide">Release date</label>
-                        <input id="releaseDate" name="releaseDate" class="releaseDate" type="text" placeholder="Release date">
+                    <label for="game-img">Image:</label>
+                    <input type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo...">
 
-                        <label for="artist" class="vhide">Artist</label>
-                        <input id="artist" name="artist" class="artist" type="text" placeholder="Artist">
-
-                        <label for="genre" class="vhide">Genre</label>
-                        <input id="genre" name="genre" class="genre" type="text" placeholder="Genre">
-
-                        <label for="description" class="vhide">Description</label>
-                        <textarea name="description" class="description" placeholder="Description"></textarea>
-
-                        <button class="add-album" type="submit">Add New Album</button>
-                    </div>
-                </fieldset>
+                    <label for="summary">Summary:</label>
+                    <textarea name="summary" id="summary"></textarea>
+                    <input class="btn submit" type="submit" value="Create Game">
+                </div>
             </form>
         </section>`
 
 export function showCreate(ctx) {
     ctx.render(createTemplate(createSubmitHandler(onCreate)))
 
-    async function onCreate({ name, imgUrl, price, releaseDate, artist, genre,  description}, form) {
-        if (name == '' || imgUrl == '' || price == '' || releaseDate == '' || artist == '' || genre == '' || description == '' ) {
+    async function onCreate({ title, imageUrl, category, maxLevel, summary, }, form) {
+        if (title == '' || imageUrl == '' || category == '' || maxLevel == '' || summary == '') {
             return alert('All fields must be filled')
         }
         await createInstance({
-            name,
-            imgUrl,
-            price,
-            releaseDate,
-            artist,
-            genre,
-            description,
+            title,
+            imageUrl,
+            category,
+            maxLevel,
+            summary,
         })
         form.reset()
-        ctx.page.redirect('/catalog')
+        ctx.page.redirect('/')
     }
 }

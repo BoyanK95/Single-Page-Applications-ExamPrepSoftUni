@@ -5,19 +5,19 @@ export async function getAll() {
 }
 
 export async function getById(id) {
-    return get('/data/albums/' + id)
+    return get('/data/games/' + id)
 }
 
 export async function deleteById(id) {
-    return del('/data/albums/' + id)
+    return del('/data/games/' + id)
 }
 
 export async function createInstance(data) {
-    return post('/data/albums', data)
+    return post('/data/games', data)
 }
 
 export async function editInstance(id, data) {
-    return put('/data/albums/' + id, data)
+    return put('/data/games/' + id, data)
 }
 
 export async function getAllRecent() {
