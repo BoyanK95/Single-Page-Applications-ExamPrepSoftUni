@@ -1,5 +1,5 @@
 import { html, nothing } from '../lib.js'
-import { search } from '../api/data.js'
+// import { search } from '../api/data.js'
 
 
 const searchTemplate = (isClicked, showSearch, result, hasUser) => html`

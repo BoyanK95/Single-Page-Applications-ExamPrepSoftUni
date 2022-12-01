@@ -17,7 +17,7 @@ const main = document.getElementById('main-content')
 
 
 page(decorateContent)
-page('/', ()=> console.log('Home'))
+page('/', showHome)
 page('/login', showLogin)
 page('/register', showRegister)
 page('/catalog', ()=> console.log('catalog'))
