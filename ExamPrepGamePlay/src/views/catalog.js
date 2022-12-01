@@ -1,42 +1,32 @@
 import { getAll } from "../api/data.js";
 import { html, nothing } from "../lib.js";
 
-const catalogTemplate = (items, hasUser) => html` 
-        <section id="catalogPage">
-            <h1>All Albums</h1>
-            ${items.length > 0 ?
-            items.map(i => cardTemplate(i, hasUser)):
-            html`<p>No Albums in Catalog!</p>`}
+const catalogTemplate = (items, hasUser) => html` <section id="catalog-page">
+  <h1>All Games</h1>
+  <!-- Display div: with information about every game (if any) -->
+  ${items.length > 0 ? items.map( i => cardTemplate(i)) :html`
+  <h3 class="no-articles">No articles yet</h3>` }
 
-        </section>`
+  <!-- Display paragraph: If there is no games  -->
+  
+</section>`;
 
 const cardTemplate = (item, hasUser) => {
-  return html`
+  return html` 
   <div class="card-box">
-                <img src=${item.imgUrl}>
-                <div>
-                    <div class="text-center">
-                        <p class="name">${item.name}</p>
-                        <p class="artist">${item.artist}</p>
-                        <p class="genre">${item.genre}</p>
-                        <p class="price">${item.price}</p>
-                        <p class="date">${item.releaseDate}</p>
-                    </div>
-
-                    ${hasUser ? 
-                      html`<div class="btn-group">
-                        <a href="/details/${item._id}" id="details">Details</a>
-                    </div>` :
-                    nothing
-                    }
-
-                    
-                </div>
-            </div>`
-}
+    <div class="allGames">
+      <div class="allGames-info">
+        <img src=${item.imageUrl} />
+        <h6>${item.category}</h6>
+        <h2>${item.title}</h2>
+        <a href="/details/${item._id}" class="details-button">Details</a>
+      </div>
+    </div>
+  </div>`;
+};
 
 export async function showCatalog(ctx) {
   const items = await getAll();
-  const hasUser = !!ctx.user
+  const hasUser = !!ctx.user;
   ctx.render(catalogTemplate(items, hasUser));
 }
