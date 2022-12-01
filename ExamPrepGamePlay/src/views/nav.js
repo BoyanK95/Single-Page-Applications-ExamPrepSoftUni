@@ -4,24 +4,24 @@ import { getUserData } from "../util.js";
 
 const nav = document.querySelector("nav");
 
-const navTemplate = (hasUser) => html` 
-<a href="#">All games</a>
-  <!-- Logged-in users -->
+const navTemplate = (hasUser, onLogout) => html` 
+<a href="/catalog">All games</a>
+  <!-- Logged-in users or guests-->
   ${hasUser ? html`
   <div id="user">
-    <a href="#">Create Game</a>
-    <a href="#">Logout</a>
+    <a href="/create">Create Game</a>
+    <a @click=${onLogout} href="javascript:void(0)">Logout</a>
   </div>`
   : html`
   <div id="guest">
-    <a href="#">Login</a>
-    <a href="#">Register</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
   </div>`}`;
 
 export function updateNav() {
   const user = getUserData();
 
-  render(navTemplate(user), nav);
+  render(navTemplate(user, onLogout), nav);
 }
 
 function onLogout() {
