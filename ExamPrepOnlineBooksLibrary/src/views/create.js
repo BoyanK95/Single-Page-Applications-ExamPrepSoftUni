@@ -4,35 +4,41 @@ import { createSubmitHandler } from '../util.js'
 
 
 const createTemplate = (onCreate) => html`
-        <section class="createPage">
-            <form @submit=${onCreate}>
+        <section id="create-page" class="create">
+            <form @submit=${onCreate} id="create-form" action="" method="">
                 <fieldset>
-                    <legend>Add Album</legend>
-
-                    <div class="container">
-                        <label for="name" class="vhide">Album name</label>
-                        <input id="name" name="name" class="name" type="text" placeholder="Album name">
-
-                        <label for="imgUrl" class="vhide">Image Url</label>
-                        <input id="imgUrl" name="imgUrl" class="imgUrl" type="text" placeholder="Image Url">
-
-                        <label for="price" class="vhide">Price</label>
-                        <input id="price" name="price" class="price" type="text" placeholder="Price">
-
-                        <label for="releaseDate" class="vhide">Release date</label>
-                        <input id="releaseDate" name="releaseDate" class="releaseDate" type="text" placeholder="Release date">
-
-                        <label for="artist" class="vhide">Artist</label>
-                        <input id="artist" name="artist" class="artist" type="text" placeholder="Artist">
-
-                        <label for="genre" class="vhide">Genre</label>
-                        <input id="genre" name="genre" class="genre" type="text" placeholder="Genre">
-
-                        <label for="description" class="vhide">Description</label>
-                        <textarea name="description" class="description" placeholder="Description"></textarea>
-
-                        <button class="add-album" type="submit">Add New Album</button>
-                    </div>
+                    <legend>Add new Book</legend>
+                    <p class="field">
+                        <label for="title">Title</label>
+                        <span class="input">
+                            <input type="text" name="title" id="title" placeholder="Title">
+                        </span>
+                    </p>
+                    <p class="field">
+                        <label for="description">Description</label>
+                        <span class="input">
+                            <textarea name="description" id="description" placeholder="Description"></textarea>
+                        </span>
+                    </p>
+                    <p class="field">
+                        <label for="image">Image</label>
+                        <span class="input">
+                            <input type="text" name="imageUrl" id="image" placeholder="Image">
+                        </span>
+                    </p>
+                    <p class="field">
+                        <label for="type">Type</label>
+                        <span class="input">
+                            <select id="type" name="type">
+                                <option value="Fiction">Fiction</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Mistery">Mistery</option>
+                                <option value="Classic">Clasic</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </span>
+                    </p>
+                    <input class="button submit" type="submit" value="Add Book">
                 </fieldset>
             </form>
         </section>`
@@ -40,17 +46,14 @@ const createTemplate = (onCreate) => html`
 export function showCreate(ctx) {
     ctx.render(createTemplate(createSubmitHandler(onCreate)))
 
-    async function onCreate({ name, imgUrl, price, releaseDate, artist, genre,  description}, form) {
-        if (name == '' || imgUrl == '' || price == '' || releaseDate == '' || artist == '' || genre == '' || description == '' ) {
+    async function onCreate({ title, imageUrl, type, description}, form) {
+        if (title == '' || imageUrl == '' || type == '' || description == '' ) {
             return alert('All fields must be filled')
         }
         await createInstance({
-            name,
-            imgUrl,
-            price,
-            releaseDate,
-            artist,
-            genre,
+            title,
+            imageUrl,
+            type,
             description,
         })
         form.reset()
