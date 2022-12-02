@@ -40,9 +40,8 @@ export function showRegister(ctx) {
     if (data.password != data['confirm-pass']) {
         return alert(`Passwords don't match!`)
     }
-    debugger
     await register(data.email, data.password)
     ctx.updateNav()
-    ctx.page.redirect('/')
+    ctx.page.redirect('/catalog')
   }
 }

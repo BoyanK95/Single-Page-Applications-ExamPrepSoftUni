@@ -17,11 +17,11 @@ const main = document.querySelector('main')
 
 page(decorateContent)
 page('/', '/catalog')
-page('/catalog', ()=> console.log('catalog'))
+page('/catalog', showCatalog)
 page('/login', showLogin)
 page('/create', ()=> console.log('create'))
 page('/details/:id', ()=> console.log('details'))
-page('/register', ()=> console.log('register'))
+page('/register', showRegister)
 page('/edit/:id', ()=> console.log('edit'))
 page('/my-books', ()=> console.log('my-books'))
 
