@@ -20,7 +20,7 @@ export async function editInstance(id, data) {
     return put('/data/albums/' + id, data)
 }
 
-export async function search(query) {
-    return get(`/data/albums?where=name%20LIKE%20%22${query}%22`)
+export async function getMyItems(query) {
+    return get(`/data/books?where=_ownerId%3D%22${query}%22&sortBy=_createdOn%20desc`)
 }
 
