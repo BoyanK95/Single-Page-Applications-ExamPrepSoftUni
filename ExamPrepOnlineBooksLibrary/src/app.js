@@ -11,7 +11,7 @@ import { updateNav } from "./views/nav.js";
 import { showRegister } from "./views/registrationView.js";
 import { showSearch } from "./views/search.js";
 
-const main = document.getElementById('main-content')
+const main = document.querySelector('main')
 
 // document.getElementById('logoutBtn').addEventListener('click', onLogout)
 
@@ -19,7 +19,7 @@ const main = document.getElementById('main-content')
 page(decorateContent)
 page('/', ()=> console.log('Home'))
 page('/catalog', ()=> console.log('catalog'))
-page('/login', ()=> console.log('login'))
+page('/login', showLogin)
 page('/create', ()=> console.log('create'))
 page('/details/:id', ()=> console.log('details'))
 page('/register', ()=> console.log('register'))
