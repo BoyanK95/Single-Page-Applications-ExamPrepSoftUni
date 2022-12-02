@@ -23,7 +23,7 @@ page('/register', showRegister)
 page('/catalog', showCatalog)
 page('/create', showCreate)
 page('/details/:id', showDetails)
-page('/edit/:id', ()=> console.log('edit'))
+page('/edit/:id', showEdit)
 page('/search', ()=> console.log('search'))
 
 updateNav()
