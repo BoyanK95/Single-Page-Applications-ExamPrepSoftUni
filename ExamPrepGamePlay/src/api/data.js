@@ -1,3 +1,4 @@
+import { setUserData } from "../util.js";
 import { post, get, del, put } from "./api.js";
 
 export async function getAll() {
@@ -26,4 +27,13 @@ export async function getAllRecent() {
 
 export async function getComments(id) {
     return get(`/data/comments?where=gameId%3D%22${id}%22`)
+}
+
+export async function postComments(id, content) {
+    const {_id, comment} = await post('/data/comments', {id, content})
+
+    setUserData({
+        _id,
+        comment
+    })
 }
