@@ -24,3 +24,6 @@ export async function getAllRecent() {
     return get(`/data/games?sortBy=_createdOn%20desc&distinct=category`)
 }
 
+export async function getComments(id) {
+    return get(`/data/comments?where=gameId%3D%22${id}%22`)
+}
